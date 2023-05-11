@@ -9,15 +9,32 @@ class LoginSystem {
     }
 
     public function addUser($email, $password) {
+        // Check if the email already exists
+        $query = "SELECT COUNT(*) FROM users WHERE email = ?";
+        $statement = $this->dbConnection->prepare($query);
+        $statement->bind_param("s", $email);
+        $statement->execute();
+        $result = $statement->get_result();
+        $count = $result->fetch_row()[0];
+    
+        if ($count > 0) {
+            // Email already exists, return false or throw an exception
+            return false;
+        }
+    
         // Hash the password before storing it
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
+    
         // Store the user in the database
         $query = "INSERT INTO users (email, password) VALUES (?, ?)";
         $statement = $this->dbConnection->prepare($query);
         $statement->bind_param("ss", $email, $hashedPassword);
         $statement->execute();
+    
+        // Return true to indicate successful user creation
+        return true;
     }
+    
 
     public function login($email, $password) {
         // Retrieve the user from the database

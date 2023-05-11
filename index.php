@@ -10,13 +10,13 @@
     <title>Document</title>
 </head>
 <?php 
-require './database.php';
+require './config.php';
 
 require_once './classes/user.php';
 
 ?>
 <body>
-
+<nav><a href="./register.php">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</a></nav>
 <section class="vh-100 IBG-red" >
   <div class="container py-6 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
